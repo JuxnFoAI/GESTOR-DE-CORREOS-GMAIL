@@ -1,0 +1,392 @@
+{
+  "name": "Limpieza automática Gmail",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "da4694a9-75fc-476c-ad67-271b9e263415",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NlMiicpMWh0lcGDA",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a8d4ea9a-0f6a-4512-bd42-946cf47932ed",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "no-reply@spotify.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "dcdd8078-0c6f-4fcd-b9a7-0ffd09f759bc",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "empleos_co@computrabajo.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "6c7b294d-8967-405e-b770-3dde020453d5",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "destacados@computrabajo.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "4beac27a-a84d-4bf9-a9a3-ff4b883ee6ff",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "notify@email.humandhq.co",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "a5a76450-0148-4584-b890-686838b1b149",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "noreply-purchases@youtube.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "409e26da-e520-440a-a37e-211737bdb94d",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "<comunicaciones.cali@fondex.com.co>",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "a09118e0-4fba-4bf6-8d84-6fb4cd3d8ce8",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "<mail@mail.adobe.com>",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "83705fe9-0e60-40f3-9528-3d0f12be4f47",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "<noreply@lovable.dev>",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "6f9d2d8f-b0b2-4d66-ab7d-0cd59375235f",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "<email@market.temuemail.com>",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "31d6acab-c9c2-4feb-8f5d-348707f3a9ff",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "<email@e.lucid.co>",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "23591711-9d23-4c5e-bac7-97f998b5645e",
+      "name": "Filtros molestos"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        -96
+      ],
+      "id": "fae5ae46-de3f-4e6a-89c5-7f65aec90cb9",
+      "name": "eliminar molestos",
+      "webhookId": "472c7a71-3e76-444b-9ff7-0fbd8ed9ffde",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NlMiicpMWh0lcGDA",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "8853c416-0293-41d1-937b-63ccf5dd4b21",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "team@hello.platzi.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "5f21154f-303e-4440-8a79-ecf345bdb94d",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "messaging-digest-noreply@linkedin.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        688,
+        160
+      ],
+      "id": "cc15735b-8ec3-42a8-b9e7-aed6b1355d6b",
+      "name": "filtros importantes"
+    },
+    {
+      "parameters": {
+        "sendTo": "juanfo2005.inf@gmail.com",
+        "subject": "📌 Correo importante pendiente de revisar",
+        "emailType": "text",
+        "message": "=Hola Juan! 👋  Tienes un correo importante pendiente de revisar:  📧 De: {{ $json.From }} 📌 Asunto: {{ $json.Subject }}  ¡No lo dejes esperando! 😊",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        928,
+        144
+      ],
+      "id": "d0da6c20-f9b6-4f86-9900-2f842eea7f65",
+      "name": "Mensaje para filtros importantes",
+      "webhookId": "85315cdd-498f-42d4-831c-14e0c8a80e39",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NlMiicpMWh0lcGDA",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0fbef2a1-820e-4a5b-bcef-acf539db5cfd",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "<comunicaciones.cali@fondex.com.co>",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "57ba1a32-eddb-4d4e-9cf1-fac446064546",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "<novedades@promociones.davivienda.com>",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "d245e346-2ca3-4bed-9d85-4def51d7e23c",
+              "leftValue": "={{ $json.From }}",
+              "rightValue": "<no_reply@communications.paypal.com>",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        96
+      ],
+      "id": "8d9518e1-4924-4673-ae10-4b9ac0623ff7",
+      "name": "Filtros molestos 2"
+    },
+    {
+      "parameters": {
+        "sendTo": "juanfo2005.inf@gmail.com",
+        "subject": "🗑️ Correo molesto eliminado",
+        "emailType": "text",
+        "message": "=Hola Juan! 👋  Se eliminó automáticamente el siguiente correo molesto:  📧 De: {{ $json.From }} 📌 Asunto: {{ $json.Subject }}  Tu bandeja de entrada te lo agradece! 🤖",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        832,
+        -96
+      ],
+      "id": "5286d313-73e0-4b37-b834-6dbdd868802c",
+      "name": "Envía mensajes de correos eliminados molestos",
+      "webhookId": "56790931-541c-4a63-8c12-d1efe1071875",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NlMiicpMWh0lcGDA",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filtros molestos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtros molestos": {
+      "main": [
+        [
+          {
+            "node": "eliminar molestos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Filtros molestos 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "eliminar molestos": {
+      "main": [
+        [
+          {
+            "node": "Envía mensajes de correos eliminados molestos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "filtros importantes": {
+      "main": [
+        [
+          {
+            "node": "Mensaje para filtros importantes",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Filtros molestos 2": {
+      "main": [
+        [
+          {
+            "node": "eliminar molestos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "filtros importantes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "053cef3c-4307-4114-a470-2519e64f04f6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fef8e8a316353efa742775914c4a46aa8caece92437f61697cb3c2428f6bd647"
+  },
+  "id": "Hkc9r6nYLj9MTdAB",
+  "tags": []
+}
