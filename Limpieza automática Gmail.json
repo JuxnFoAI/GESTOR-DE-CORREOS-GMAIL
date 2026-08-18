@@ -206,10 +206,10 @@
     },
     {
       "parameters": {
-        "sendTo": "juanfo2005.inf@gmail.com",
+        "sendTo": "YOUR_EMAIL@gmail.com",
         "subject": "📌 Correo importante pendiente de revisar",
         "emailType": "text",
-        "message": "=Hola Juan! 👋  Tienes un correo importante pendiente de revisar:  📧 De: {{ $json.From }} 📌 Asunto: {{ $json.Subject }}  ¡No lo dejes esperando! 😊",
+        "message": "=Tienes un correo importante pendiente de revisar:\n\nDe: {{ $json.From }}\nAsunto: {{ $json.Subject }}\n\nNo lo dejes esperando.",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
@@ -281,10 +281,10 @@
     },
     {
       "parameters": {
-        "sendTo": "juanfo2005.inf@gmail.com",
+        "sendTo": "YOUR_EMAIL@gmail.com",
         "subject": "🗑️ Correo molesto eliminado",
         "emailType": "text",
-        "message": "=Hola Juan! 👋  Se eliminó automáticamente el siguiente correo molesto:  📧 De: {{ $json.From }} 📌 Asunto: {{ $json.Subject }}  Tu bandeja de entrada te lo agradece! 🤖",
+        "message": "=Se envió a la papelera el siguiente correo molesto:\n\nDe: {{ $json.From }}\nAsunto: {{ $json.Subject }}\n\nPuedes recuperarlo desde Papelera durante unos 30 días.",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",

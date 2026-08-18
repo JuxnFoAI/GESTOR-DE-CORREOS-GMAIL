@@ -1,0 +1,20 @@
+{
+  "unwanted": [
+    "no-reply@spotify.com",
+    "empleos_co@computrabajo.com",
+    "destacados@computrabajo.com",
+    "notify@email.humandhq.co",
+    "noreply-purchases@youtube.com",
+    "comunicaciones.cali@fondex.com.co",
+    "mail@mail.adobe.com",
+    "noreply@lovable.dev",
+    "email@market.temuemail.com",
+    "email@e.lucid.co",
+    "novedades@promociones.davivienda.com",
+    "no_reply@communications.paypal.com"
+  ],
+  "important": [
+    "team@hello.platzi.com",
+    "messaging-digest-noreply@linkedin.com"
+  ]
+}

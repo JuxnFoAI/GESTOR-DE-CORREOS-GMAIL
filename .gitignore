@@ -1,0 +1,8 @@
+.env
+.env.*
+credentials.json
+credentials.txt
+client_secret*.json
+*.pem
+*.p12
+token.json
