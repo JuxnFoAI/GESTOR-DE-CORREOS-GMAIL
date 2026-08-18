@@ -35,9 +35,13 @@ Edita `senders.json` para añadir o quitar direcciones. No hace falta tocar nada
 - Automatización activa en Cursor (horario: cada 6 horas).
 - Este repositorio en GitHub, para que la automatización lea `senders.json`.
 
-## Respaldo n8n
+## Cómo era antes (n8n)
 
-`Limpieza automática Gmail.json` es el flujo original de n8n, por si quieres importarlo en n8n Cloud. Es opcional: el camino principal ya no depende de tener n8n en el PC.
+Así se veía el flujo cuando el proyecto corría en n8n, en el PC:
+
+![Flujo completo de n8n](ImagenFlujoCompleto.png)
+
+`Limpieza automática Gmail.json` es el export original, por si quieres importarlo en n8n Cloud. Es opcional: el camino principal ya no depende de tener n8n en el PC.
 
 Si lo importas:
 
