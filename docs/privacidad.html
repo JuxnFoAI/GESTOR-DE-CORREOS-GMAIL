@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Política de privacidad · Gestor de correos Gmail</title>
+    <meta
+      name="description"
+      content="Qué datos de Gmail usa el Gestor de correos Gmail, para qué, dónde se procesan y cómo revocar el acceso."
+    />
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Política de privacidad</h1>
+      <p class="entradilla">
+        Gestor de correos Gmail. Última actualización: 29 de septiembre de 2026.
+      </p>
+    </header>
+
+    <main>
+      <h2>Quién trata tus datos</h2>
+      <p class="aviso">
+        No existe ningún servidor ni servicio central. Cada persona instala su propia copia del
+        programa en su cuenta de GitHub y la conecta a su propia cuenta de Google, así que quien
+        ejecuta el programa y decide sobre sus datos eres tú. El autor del código no recibe, no
+        almacena y no puede ver el correo de nadie.
+      </p>
+
+      <h2>Qué datos de Gmail se usan</h2>
+      <p>De cada correo recibido en la ventana de tiempo que se revisa, el programa pide a la API:</p>
+      <ul>
+        <li>el identificador del mensaje;</li>
+        <li>la cabecera <code>From</code>, para saber quién lo envía;</li>
+        <li>la cabecera <code>Subject</code>, para nombrarlo en el resumen;</li>
+        <li>la fecha de recepción, para ordenar el resumen.</li>
+      </ul>
+      <p>
+        La petición se hace pidiendo solo esas cabeceras. <strong>El cuerpo del mensaje no se
+        descarga nunca</strong>, y tampoco los adjuntos, los contactos, el calendario ni ningún otro
+        dato de la cuenta. También se consulta la dirección de la cuenta conectada, con un único fin:
+        enviarte el resumen a ti y no a una dirección escrita en el código.
+      </p>
+
+      <h2>Para qué se usan</h2>
+      <ul>
+        <li>Comparar el remitente con las dos listas que tú escribes en el archivo de configuración.</li>
+        <li>Mover a la papelera de Gmail los correos de la lista de remitentes no deseados.</li>
+        <li>Enviarte a tu propia cuenta un resumen de lo que se movió y de lo que conviene revisar.</li>
+      </ul>
+      <p>
+        No se usan para nada más. No hay perfilado, ni publicidad, ni analítica, ni entrenamiento de
+        modelos de inteligencia artificial.
+      </p>
+
+      <h2>Dónde se procesan y cuánto se conservan</h2>
+      <p>
+        El programa se ejecuta en GitHub Actions durante unos segundos, cada seis horas. Los datos de
+        tus correos existen solo en la memoria de ese proceso y desaparecen cuando termina. No hay
+        base de datos, ni archivos, ni copias, ni caché. Lo único que queda es el correo de resumen,
+        y queda en tu propio buzón.
+      </p>
+      <p>
+        El registro de ejecución de GitHub Actions guarda cuántos correos se revisaron y el asunto de
+        la ficha de resumen, nunca credenciales ni el contenido de los mensajes.
+      </p>
+
+      <h2>Con quién se comparten</h2>
+      <p>
+        Con nadie. El programa no tiene dependencias en tiempo de ejecución y las únicas direcciones
+        de red a las que se conecta son las de Google: el servicio de tokens de OAuth y la API de
+        Gmail.
+      </p>
+
+      <h2>Uso limitado</h2>
+      <p>
+        El uso que esta aplicación hace de la información recibida de las API de Google se ajusta a la
+        <a
+          href="https://developers.google.com/terms/api-services-user-data-policy"
+          >Política de Datos de Usuario de los Servicios de API de Google</a
+        >, incluidos los requisitos de Uso Limitado.
+      </p>
+
+      <h2>Permiso que se solicita</h2>
+      <p>
+        Un único permiso: <code>https://www.googleapis.com/auth/gmail.modify</code>. Es el mínimo que
+        permite mover un correo a la papelera y enviar el resumen. <strong>No permite borrar correos
+        de forma permanente</strong>, así que lo que el programa mueve se puede recuperar desde la
+        papelera de Gmail durante unos treinta días.
+      </p>
+
+      <h2>Cómo retirar el acceso</h2>
+      <p>
+        En cualquier momento, desde
+        <a href="https://myaccount.google.com/permissions"
+          >los permisos de tu cuenta de Google</a
+        >, puedes quitarle el acceso. El programa deja de funcionar en la siguiente ejecución. Para
+        cerrarlo del todo, borra también las credenciales guardadas en los secrets de tu repositorio y
+        desactiva la ejecución programada.
+      </p>
+
+      <h2>Seguridad</h2>
+      <p>
+        Las credenciales viven en los secrets del repositorio, cifrados, y nunca en el código. El
+        permiso se concede con PKCE y verificación de <code>state</code>. Los mensajes de error
+        incluyen el código HTTP pero nunca la respuesta de Google, para que un registro no acabe
+        mostrando una credencial.
+      </p>
+
+      <h2>Cambios</h2>
+      <p>
+        Si esta política cambia, la fecha de arriba cambia con ella y el cambio queda registrado en el
+        historial del repositorio.
+      </p>
+
+      <h2>Contacto</h2>
+      <p>
+        Para cualquier duda, abre una incidencia en el
+        <a href="https://github.com/JuxnFoAI/GESTOR-DE-CORREOS-GMAIL/issues">repositorio</a>.
+      </p>
+    </main>
+
+    <footer>
+      <p><a href="./">Volver al inicio</a>.</p>
+    </footer>
+  </body>
+</html>
