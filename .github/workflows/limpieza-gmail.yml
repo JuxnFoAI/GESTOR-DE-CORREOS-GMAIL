@@ -1,0 +1,39 @@
+name: Limpieza de Gmail
+
+on:
+  schedule:
+    # Cada 6 horas. GitHub puede retrasar la ejecución unos minutos.
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Revisar y avisar sin mover nada a la papelera
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# Dos ejecuciones a la vez revisarían los mismos correos.
+concurrency:
+  group: limpieza-gmail
+  cancel-in-progress: false
+
+jobs:
+  limpiar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # No hay `npm ci`: el proceso corre sin dependencias en tiempo de ejecución.
+      - run: npm start
+        env:
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          # Una hora más que el intervalo, para cubrir un arranque retrasado.
+          LOOKBACK_HOURS: "7"
+          DRY_RUN: ${{ inputs.dry_run }}
