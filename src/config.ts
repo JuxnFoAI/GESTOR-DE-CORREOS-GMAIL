@@ -9,9 +9,13 @@ export class ConfigError extends Error {
   }
 }
 
-export type GoogleCredentials = {
+/** Identidad de la aplicación en Google. Sin el refresh token no da acceso a ninguna cuenta. */
+export type GoogleClient = {
   readonly clientId: string;
   readonly clientSecret: string;
+};
+
+export type GoogleCredentials = GoogleClient & {
   readonly refreshToken: string;
 };
 
@@ -27,12 +31,19 @@ type Environment = Readonly<Record<string, string | undefined>>;
 export function readConfig(env: Environment): Config {
   return {
     credentials: {
-      clientId: requireEnv(env, "GMAIL_CLIENT_ID"),
-      clientSecret: requireEnv(env, "GMAIL_CLIENT_SECRET"),
+      ...readGoogleClient(env),
       refreshToken: requireEnv(env, "GMAIL_REFRESH_TOKEN"),
     },
     lookbackHours: readLookbackHours(env.LOOKBACK_HOURS),
     isDryRun: env.DRY_RUN?.trim() === "true",
+  };
+}
+
+/** Solo el cliente OAuth, que es todo lo que necesita el flujo de consentimiento inicial. */
+export function readGoogleClient(env: Environment): GoogleClient {
+  return {
+    clientId: requireEnv(env, "GMAIL_CLIENT_ID"),
+    clientSecret: requireEnv(env, "GMAIL_CLIENT_SECRET"),
   };
 }
 

@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node src/main.ts",
     "dev": "node --env-file-if-exists=.env src/main.ts",
+    "auth": "node --env-file-if-exists=.env src/auth/main.ts",
     "lint": "oxlint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"

@@ -31,7 +31,7 @@ Node.js 22.18 o superior, porque el proceso ejecuta TypeScript sin compilar.
 
 ```bash
 npm install
-cp .env.example .env   # rellena tus valores
+cp .env.example .env   # rellena tus valores, ver Acceso a Gmail
 npm run dev
 ```
 
@@ -43,13 +43,25 @@ Empieza con `DRY_RUN=true`: revisa la bandeja y te manda el resumen sin mover na
 
 ## Acceso a Gmail
 
-1. Crea un proyecto en Google Cloud y habilita la API de Gmail.
-2. Deja la pantalla de consentimiento en modo de prueba, con tu cuenta como usuario de prueba.
-3. Crea una credencial OAuth de tipo aplicación de escritorio. De ahí salen el client ID y el client secret.
-4. Consigue un refresh token para tu cuenta con el alcance `https://www.googleapis.com/auth/gmail.modify`.
-5. Guarda los tres valores en Settings → Secrets and variables → Actions, con los nombres `GMAIL_CLIENT_ID`, `GMAIL_CLIENT_SECRET` y `GMAIL_REFRESH_TOKEN`.
+Se pide una sola vez, y todo pasa por tu equipo:
+
+1. En Google Cloud, crea un proyecto y habilita la **API de Gmail**.
+2. En la pantalla de consentimiento, déjala en modo de prueba y añade tu cuenta como usuario de prueba.
+3. Crea una credencial OAuth de tipo **aplicación de escritorio**, que es la que corresponde a un proceso sin navegador. De ahí salen el client ID y el client secret.
+4. Ponlos en tu `.env` y ejecuta `npm run auth`. Abre la dirección que imprime, concede el permiso y el proceso te devuelve el refresh token. Cópialo a `.env` como `GMAIL_REFRESH_TOKEN`.
+5. Guarda los tres valores como secrets del repositorio. `gh` los pide por teclado y no los muestra:
+
+```bash
+gh secret set GMAIL_CLIENT_ID
+gh secret set GMAIL_CLIENT_SECRET
+gh secret set GMAIL_REFRESH_TOKEN
+```
 
 `gmail.modify` es el alcance mínimo que sirve: permite mover a la papelera y enviar el resumen, y **no** permite borrar para siempre.
+
+El consentimiento usa PKCE con método S256 y un `state` aleatorio, y el servidor que recibe la respuesta escucha solo en `127.0.0.1`, en un puerto que asigna el sistema. El refresh token se imprime en la terminal y no se guarda en ningún archivo: llévalo a los secrets y cierra la terminal.
+
+Si una credencial se te escapa, restablécela en Google Cloud y revoca el acceso de la aplicación desde la configuración de tu cuenta de Google. El client secret solo sirve acompañado de tu consentimiento, pero **un refresh token filtrado da acceso de escritura a tu correo hasta que lo revoques**.
 
 ## Privacidad
 
@@ -63,6 +75,7 @@ Este repositorio **no debe incluir** tu correo personal, contraseñas ni credenc
 
 Node.js y TypeScript, **sin dependencias en tiempo de ejecución**: la API de Gmail se consume por HTTP con `fetch`. Las dependencias del `package.json` son solo de desarrollo (pruebas, lint y tipos), y por eso el workflow de limpieza no instala nada antes de correr.
 
+- `src/auth/` pide el permiso la primera vez: PKCE, `state` y un loopback que espera la redirección.
 - `src/gmail/` habla con la API: token, cliente con reintentos y espera exponencial, y normalización de la respuesta.
 - `src/inbox/` es el dominio: validar las listas, reducir el remitente a una dirección comparable y clasificar.
 - `src/report/` redacta el resumen.
